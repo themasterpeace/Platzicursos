@@ -16,7 +16,8 @@ def detail(request, question_id):
     })
 
 def results(request, question_id):
-    return HttpResponse(f"Estas viendo los resultados de la pregunta no. {question_id}")
+    
+    
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -29,7 +30,7 @@ def vote(request, question_id):
             "error_message": "No elegiste una respuesta"
         })
     else:
-        selected_choice.vote += 1
+        selected_choice.votes += 1
         selected_choice.save()
-        return HttpResponseRedirect(reverse("polls.results", args=(question.id)))
+        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
     
